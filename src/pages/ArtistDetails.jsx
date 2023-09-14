@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
 import { useGetArtistDetailsQuery,useGetArtistTopTracksQuery } from '../redux/services/shazamCore';
 import { setActiveSong,playPause } from '../redux/features/playerSlice';
-import { createSongCard } from '../utils/hepler';
+import { createSongCard } from '../utils/helper';
 const ArtistDetails = () => {
   const {id : artistId}=useParams()
   const {data : artistData,isFetching : isFetchindArtist,error : aristsError}=useGetArtistDetailsQuery(artistId)

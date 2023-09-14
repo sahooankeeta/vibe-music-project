@@ -1,3 +1,5 @@
+import Auth from './Auth';
+import Home from './Home';
 import Discover from './Discover';
 import TopArtists from './TopArtists';
 import ArtistDetails from './ArtistDetails';
@@ -7,6 +9,8 @@ import TopCharts from './TopCharts';
 import AroundYou from './AroundYou';
 
 export {
+  Home,
+  Auth,
   Discover,
   Search,
   TopArtists,

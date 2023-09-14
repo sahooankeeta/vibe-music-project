@@ -3,7 +3,7 @@ import {genres} from "../assets/constants"
 import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 import { selectGenreListId } from "../redux/features/playerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { createSongCard } from "../utils/hepler";
+import { createSongCard } from "../utils/helper";
 import { useState } from "react";
 const Discover = () => {
     const dispatch=useDispatch()
