@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink,useNavigate } from 'react-router-dom';
+import {AiFillHeart} from "react-icons/ai"
 import { HiOutlineHashtag, HiOutlineHome, HiOutlineMenu, HiOutlinePhotograph, HiOutlineUserGroup } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
 import { signOut } from 'firebase/auth';
@@ -11,6 +12,7 @@ import { logo } from '../assets';
 const links = [
   { name: 'Discover', to: '/', icon: HiOutlineHome },
   { name: 'Around You', to: '/around-you', icon: HiOutlinePhotograph },
+  { name: 'Liked songs', to: '/liked', icon: AiFillHeart}
 ];
 
 const NavLinks = ({ handleClick }) => {

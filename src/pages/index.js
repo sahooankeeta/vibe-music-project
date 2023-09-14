@@ -7,7 +7,7 @@ import SongDetails from './SongDetails';
 import Search from './Search';
 import TopCharts from './TopCharts';
 import AroundYou from './AroundYou';
-
+import LikedSongs from './LikedSongs';
 export {
   Home,
   Auth,
@@ -18,4 +18,5 @@ export {
   SongDetails,
   TopCharts,
   AroundYou,
+  LikedSongs
 };

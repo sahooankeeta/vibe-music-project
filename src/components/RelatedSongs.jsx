@@ -2,7 +2,7 @@ import React from 'react';
 
 import SongBar from './SongBar';
 
-const RelatedSongs = ({ data, artistId, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => {
+const RelatedSongs = ({ data, artistId, isPlaying, activeSong}) => {
   console.log("tttttttt",artistId)
   return (
     <div className="flex flex-col">
@@ -17,8 +17,7 @@ const RelatedSongs = ({ data, artistId, isPlaying, activeSong, handlePauseClick,
             artistId={artistId}
             isPlaying={isPlaying}
             activeSong={activeSong}
-            handlePauseClick={handlePauseClick}
-            handlePlayClick={handlePlayClick}
+            
           />
         ))}
       </div>

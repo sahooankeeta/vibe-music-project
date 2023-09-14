@@ -31,7 +31,7 @@ const Auth = () => {
         const user = userCredential.user;
         notify("success","Signed in successfully")
         navigate("/")
-        dispatch(setUser(user));
+        dispatch(setUser({email:user.email,uid:user.uid}));
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -103,7 +103,7 @@ signInWithPopup(auth, provider)
   }
   return (
     <div className='flex w-[100vw] h-[100vh] justify-center items-center bg-svg bg-slate-900'>
-      <form onSubmit={handleSubmit} className='w-[450px] p-4 rounded-lg bg-slate-900'>
+      <div className='w-[450px] p-4 rounded-lg bg-slate-900'>
         <h2 className="text-white font-bold text-center text-4xl">{authType=='login' && 'Login to your account'}{authType=='signup' && 'Create account'}</h2>
         <div className="flex gap-2 justify-center text-white px-5 py-2.5 text-sm leading-5  font-semibold cursor-pointer" onClick={()=>setAuthType(authType==='login'?'signup':'login')}>
         <span>{authType==='login' ?"Don't have an account yet ?":"Already have an account ?"}</span>
@@ -151,15 +151,15 @@ signInWithPopup(auth, provider)
       </div>
     </div>
    }
-    <button type="submit" disabled={inProgess} className="mt-6 bg-sky-500 hover:bg-sky-700 disabled:bg-slate-600 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full">
+    <button onClick={handleSubmit} disabled={inProgess} className="mt-6 bg-sky-500 hover:bg-sky-700 disabled:bg-slate-600 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full">
         {authType==='login'?'Login':authType==='signup'?'Sign Up':'Send reset email'} 
       </button>
       <div className="mt-6 font-bold font-xl text-white text-center">OR</div>
-      <button className='mt-6 w-full bg-white hover:bg-slate-300 px-5 py-2.5 font-semibold rounded-lg inline-flex justify-center items-center cursor-pointer text-slate-800' onClick={handleGoogleAuthentication}>
+      <button onClick={handleGoogleAuthentication} className='mt-6 w-full bg-white hover:bg-slate-300 px-5 py-2.5 font-semibold rounded-lg inline-flex justify-center items-center cursor-pointer text-slate-800' >
         <FcGoogle className='w-6 h-6 mr-2'/>
         <span>Google</span>
       </button>
-      </form>
+      </div>
       
     </div>
   )
