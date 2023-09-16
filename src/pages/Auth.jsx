@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
-import {  createUserWithEmailAndPassword,signInWithEmailAndPassword,getAuth,signInWithPopup,GoogleAuthProvider ,sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../firebase';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/features/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleLogin,handleGoogleAuthentication,handleResetPassword,handleSignup } from '../actions';
 import {FcGoogle} from "react-icons/fc"
-import notify from '../utils/notify';
 const Auth = () => {
   const [authType,setAuthType]=useState('login')
-  const [inProgess,setInProgress]=useState(false)
+  const {isLoading}=useSelector(state=>state.user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [form,setForm] = useState({
@@ -23,83 +20,17 @@ const Auth = () => {
   const handleRememberMe=(e)=>{
     setRememberMe(e.target.checked)
   }
-  const handleLogin=async(email,password)=>{
-    setInProgress(true)
-    await signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        notify("success","Signed in successfully")
-        navigate("/")
-        dispatch(setUser({email:user.email,uid:user.uid}));
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error.code)
-        notify("error", errorCode.split("/").join(" ").split("-").join(" "))
-    });
-    setInProgress(false)
-  }
-  const handleSignup=async(email,password)=>{
-    setInProgress(true);
-    await createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        const user = userCredential.user;
-        notify("success","Welcome :)")
-        dispatch(setUser(user));
-        navigate("/")
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        notify("error",errorMessage.split("/").join(" ").split("-").join(" "))
-    });
-    setInProgress(false)
-  }
-  const handleResetPassword=async(email)=>{
-    setInProgress(true)
-    await sendPasswordResetEmail(auth, email)
-    .then((ans) => {
-      console.log(ans)
-      notify("success","Reset password email sent")
-      setAuthType("login")
-  })
-  .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      notify("error", errorCode.split("/").join(" ").split("-").join(" "))
-  });
-    setInProgress(false)
-  }
-  const handleGoogleAuthentication=()=>{
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-signInWithPopup(auth, provider)
-  .then((result) => {
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    const user = result.user;
-    notify("success","Let's vibe")
-    console.log("google succes",user)
-    dispatch(setUser(user))
-    navigate("/")
-  }).catch((error) => {
-    console.log(error)
-    notify("error",error.code.split("/").join(" ").split("-").join(" "))
-  });
-  }
   const handleSubmit=async (e)=>{
     e.preventDefault()
     console.log(form)
     if(authType==='signup')
-      handleSignup(form.email, form.password)
+      dispatch(handleSignup(form))
     if(authType==='login')
-      handleLogin(form.email, form.password)
+      {dispatch(handleLogin(form))
+     
+      }
     if(authType==='forgot')
-     handleResetPassword(form.email)
+     dispatch(handleResetPassword(form.email))
   }
   return (
     <div className='flex w-[100vw] h-[100vh] justify-center items-center bg-svg bg-slate-900'>
@@ -151,11 +82,11 @@ signInWithPopup(auth, provider)
       </div>
     </div>
    }
-    <button onClick={handleSubmit} disabled={inProgess} className="mt-6 bg-sky-500 hover:bg-sky-700 disabled:bg-slate-600 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full">
+    <button onClick={handleSubmit} disabled={isLoading} className="mt-6 bg-sky-500 hover:bg-sky-700 disabled:bg-slate-600 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full">
         {authType==='login'?'Login':authType==='signup'?'Sign Up':'Send reset email'} 
       </button>
       <div className="mt-6 font-bold font-xl text-white text-center">OR</div>
-      <button onClick={handleGoogleAuthentication} className='mt-6 w-full bg-white hover:bg-slate-300 px-5 py-2.5 font-semibold rounded-lg inline-flex justify-center items-center cursor-pointer text-slate-800' >
+      <button onClick={()=>dispatch(handleGoogleAuthentication())} className='mt-6 w-full bg-white hover:bg-slate-300 px-5 py-2.5 font-semibold rounded-lg inline-flex justify-center items-center cursor-pointer text-slate-800' >
         <FcGoogle className='w-6 h-6 mr-2'/>
         <span>Google</span>
       </button>

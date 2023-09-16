@@ -8,6 +8,7 @@ import { createSongCard } from '../utils/helper';
 const Search = () => {
   const { searchTerm } = useParams();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const {user}=useSelector(state=>state.user)
   const { data, isFetching, error } = useGetSongsBySearchQuery(searchTerm);
   console.log(data)
   const songs = data?.tracks?.hits.map((song) => createSongCard({title:song.heading?.title,subtitle:song.heading?.subtitle,key:song.key,artistId:song.artists[0]?.adamid,image:song.images?.default,audio:song.stores?.apple?.previewurl}));
@@ -29,6 +30,7 @@ const Search = () => {
             activeSong={activeSong}
             data={songs}
             i={i}
+            email={user.email}
           />
         ))}
       </div>

@@ -3,9 +3,7 @@ import { NavLink,useNavigate } from 'react-router-dom';
 import {AiFillHeart} from "react-icons/ai"
 import { HiOutlineHashtag, HiOutlineHome, HiOutlineMenu, HiOutlinePhotograph, HiOutlineUserGroup } from 'react-icons/hi';
 import { RiCloseLine } from 'react-icons/ri';
-import { signOut } from 'firebase/auth';
-import {auth} from "../firebase"
-import { setUser } from '../redux/features/authSlice';
+import { handleLogout } from '../actions';
 import { useDispatch } from 'react-redux';
 import { logo } from '../assets';
 
@@ -18,16 +16,7 @@ const links = [
 const NavLinks = ({ handleClick }) => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
-  const handleLogout = async()=>{
-    signOut(auth).then(() => {
-      // Sign-out successful.
-          navigate("/");
-          console.log("Signed out successfully")
-          dispatch(setUser(null))
-      }).catch((error) => {
-       console.log(error)
-      });
-  }
+ 
   return (
   <div className="mt-10">
     {links.map((item) => (
@@ -41,7 +30,7 @@ const NavLinks = ({ handleClick }) => {
         {item.name}
       </NavLink>
     ))}
-    <button onClick={handleLogout} className='mt-6 bg-sky-500 hover:bg-sky-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full'>logout</button>
+    <button onClick={()=>dispatch(handleLogout())} className='mt-6 bg-sky-500 hover:bg-sky-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white w-full'>logout</button>
   </div>
 )};
 

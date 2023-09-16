@@ -8,10 +8,11 @@ import { useState } from "react";
 const Discover = () => {
     const dispatch=useDispatch()
     const {isPlaying,activeSong,genreListId}=useSelector(state=>state.player)
+    const {user}=useSelector(state=>state.user)
+    console.log("docover",user.email)
     const genreTitle=genres.find(({value})=>value===genreListId)?.title
     const {data,error,isFetching}=useGetTopChartsQuery(genreListId || 'POP')
     const tracks=data?.tracks?.map(item=>createSongCard({title:item.title,subtitle:item.subtitle,key:item.key,audio:item?.hub?.actions[1]?.uri,artistId:item.artists[0]?.adamid,image:item.images?.coverart}))
-    console.log(tracks)
     if(isFetching)
      return <Loader/>
     if(error)
@@ -38,6 +39,7 @@ const Discover = () => {
               activeSong={activeSong}
               isPlaying={isPlaying}
               i={i}
+              email={user.email}
               />)}
             </div>
         </div>

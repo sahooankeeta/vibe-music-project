@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSong,playPause } from '../redux/features/playerSlice';
-import { setLikeSongs } from '../redux/features/SongsLikedSlice';
+import { handleLikeSongs } from '../actions';
 import {AiOutlineHeart,AiFillHeart} from "react-icons/ai"
 import PlayPause from './PlayPause';
 
-const SongBar = ({ song, i,data,isPlaying, activeSong,}) => {
+const SongBar = ({ song, i,data,isPlaying, activeSong,email}) => {
   const dispatch=useDispatch()
-  const {song_ids}=useSelector(state=>state.songs_liked)
+  const {song_ids=[]}=useSelector(state=>state.user)
   const handlePauseClick = () => {
     dispatch(playPause(false))
   }
@@ -45,7 +45,7 @@ const SongBar = ({ song, i,data,isPlaying, activeSong,}) => {
             handlePause={handlePauseClick}
             handlePlay={() => handlePlayClick({song:song,data, i})}
          />
-         <div className='cursor-pointer' onClick={()=>dispatch(setLikeSongs(song))}>
+         <div className='cursor-pointer' onClick={()=>dispatch(handleLikeSongs({song,email}))}>
           {song_ids.includes(song.title)? <AiFillHeart fill='pink' size={20}/>:<AiOutlineHeart fill='pink' size={20}/>}
         </div>
     </div>
