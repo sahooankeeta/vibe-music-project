@@ -10,7 +10,7 @@ import { handleLogin,
 const initialState = {
     isLoading:false,
  user:JSON.parse(localStorage.getItem('user')),
- song_ids:JSON.parse(localStorage.getItem('user'))? JSON.parse(localStorage.getItem('user')).liked_songs?.map(i=>i.title) : [],
+ song_ids:JSON.parse(localStorage.getItem('user'))? JSON.parse(localStorage.getItem('user'))?.liked_songs?.map(i=>i.title) : [],
  error:null
 };
 
