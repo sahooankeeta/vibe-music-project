@@ -12,7 +12,7 @@ export const shazamCoreApi=createApi({
     }),
     endpoints:(builder)=>({
         getTopCharts: builder.query({ query:(genre='POP')=>`/charts/get-top-songs-in_world_by_genre?genre=${genre}`}),
-        getTopLocalCharts: builder.query({ query:(code='IN',genre='POP')=>`/charts/get-top-songs-in_country_by_genre?country_code=${code}&genre=${genre}`}),
+        getTopLocalCharts: builder.query({ query:(code='IN',genre='POP')=>`/charts/get-top-songs-in-country?country_code=${code}&limit=20`}),
         getArtistDetails: builder.query({ query:(id)=>`/artist/get-details?id=${id}`}),
         getArtistTopTracks: builder.query({ query:(id)=>`/artist/get-top-songs?id=${id}`}),
         getSongsBySearch: builder.query({ query:(query)=>`/search?term=${query}`})

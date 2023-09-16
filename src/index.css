@@ -48,3 +48,6 @@
     background:linear-gradient(0deg, rgba(41, 16, 31, 0.3), rgba(57, 15, 40, 0.3)), url("./assets/bg.jpg");
     background-size: cover;
 }
+.purple_gradient {
+  @apply bg-gradient-to-r from-blue-700 via-pink-700 to-yellow-700 bg-clip-text text-transparent;
+}

@@ -64,18 +64,6 @@ const Auth = () => {
    {
     authType==='login' && 
     <div className="mt-6 flex justify-between items-center">
-    <div className="flex items-center">
-          <input
-            id="remember-me"
-            name="remember_me"
-            type="checkbox"
-            className="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300 rounded"
-            onChange={handleRememberMe}
-          />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-white font-semibold">
-            Remember me
-          </label>
-        </div>
     
       <div className="text-sky-500 hover:text-sky-300 px-5 py-2.5 text-sm leading-5 text-right  font-semibold cursor-pointer" onClick={()=>setAuthType('forgot')}>
         Forgot your password ?

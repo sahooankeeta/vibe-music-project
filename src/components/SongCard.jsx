@@ -5,14 +5,12 @@ import { setActiveSong,playPause } from '../redux/features/playerSlice';
 import {AiOutlineHeart,AiFillHeart} from "react-icons/ai"
 import PlayPause from './PlayPause';
 import { handleLikeSongs } from '../actions';
-
 const SongCard = ({ song, isPlaying, activeSong, data, i,email }) => {
   const dispatch = useDispatch();
  const {song_ids}=useSelector(state=>state.user)
  const handlePauseClick = () => {
   dispatch(playPause(false))
 }
-
 const handlePlayClick = () => {
   dispatch(setActiveSong({song,data,i}))
   dispatch(playPause(true))
@@ -21,7 +19,7 @@ const handlePlayClick = () => {
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg ">
       <div className="relative w-full h-56 group cursor-pointer">
-        <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.title === song.title ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
+        <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.key === song.key ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
           <PlayPause
             isPlaying={isPlaying}
             activeSong={activeSong}
@@ -40,7 +38,7 @@ const handlePlayClick = () => {
             {song.title}
           </Link>
         </p>
-        <p className="text-sm truncate text-gray-300 mt-1">
+        <p className="text-sm truncate text-gray-300 mt-1 whitespace-break-spaces">
           <Link to={song.artistId ? `/artists/${song.artistId}` : '/top-artists'}>
             {song.subtitle}
           </Link>

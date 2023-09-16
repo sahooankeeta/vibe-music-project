@@ -12,8 +12,16 @@ const Discover = () => {
     console.log("docover",user.email)
     const genreTitle=genres.find(({value})=>value===genreListId)?.title
     const {data,error,isFetching}=useGetTopChartsQuery(genreListId || 'POP')
-    const tracks=data?.tracks?.map(item=>createSongCard({title:item.title,subtitle:item.subtitle,key:item.key,audio:item?.hub?.actions[1]?.uri,artistId:item.artists[0]?.adamid,image:item.images?.coverart}))
-    if(isFetching)
+    const tracks=data?.tracks?.filter(item=>(item?.hub?.actions?.length>0)).map(item=>
+        createSongCard({
+            title:item.title,
+            subtitle:item.subtitle,
+            key:item.key,
+            audio:item?.hub?.actions[1]?.uri,
+            artistId:item.artists[0]?.adamid,
+            image:item.images?.coverart}))
+    console.log(tracks)
+        if(isFetching)
      return <Loader/>
     if(error)
      return <Error/>
@@ -25,6 +33,7 @@ const Discover = () => {
                    Discover {genreTitle}
                 </h2>
                 <select 
+                value={genreListId || 'pop'}
                 onChange={(e)=>{dispatch(selectGenreListId(e.target.value))}}
                 className="bg-black text-gray-300 p-3 text-sm rouded-lg outline-none sm:mt-0 mt-5">
                     {genres.map(genre=><option value={genre.value} key={genre.value}>{genre.title}</option>)}
