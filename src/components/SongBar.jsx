@@ -46,7 +46,7 @@ const SongBar = ({ song, i,data,isPlaying, activeSong,email}) => {
             handlePlay={() => handlePlayClick({song:song,data, i})}
          />
          <div className='cursor-pointer' onClick={()=>dispatch(handleLikeSongs({song,email}))}>
-          {song_ids.includes(song.title)? <AiFillHeart fill='pink' size={20}/>:<AiOutlineHeart fill='pink' size={20}/>}
+          {song_ids?.includes(song.title)? <AiFillHeart fill='pink' size={20}/>:<AiOutlineHeart fill='pink' size={20}/>}
         </div>
     </div>
   );

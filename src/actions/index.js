@@ -1,13 +1,18 @@
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,signInWithPopup, GoogleAuthProvider,signOut } from "firebase/auth";
+import { signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut } from "firebase/auth";
 import { collection,where,query,getDocs,addDoc,updateDoc,doc} from "firebase/firestore";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import notify from"../utils/notify"
+
 import {auth,db} from "../firebase"
+
 const userCollectionRef=collection(db,"users")
-// console.log(userCollectionRef)
-// console.log(await getDocs(query(userCollectionRef, where("email", "==", "39ankeeta@gmail.com"))))
+
 export const handleLogin=createAsyncThunk("user/login",async(form)=>{
-  const data=   await signInWithEmailAndPassword(auth, form.email, form.password)
+  const data = await signInWithEmailAndPassword(auth, form.email, form.password)
   .then(async(userCredential) => {
       const user=userCredential.user
       const q=query(userCollectionRef,where("email","==",user.email))
@@ -34,6 +39,12 @@ export const handleLogin=createAsyncThunk("user/login",async(form)=>{
   return data
 })
 export const handleSignup=createAsyncThunk("user/signup",async(form)=>{
+  console.log(form.password!==form.confirm_password)
+  if(form.password!==form.confirm_password)
+   return {
+  user:null,
+  error:'Passwords do not match'
+  }
   const data=await createUserWithEmailAndPassword(auth, form.email, form.password)
   .then(async(userCredential) => {
       const user = userCredential.user;
@@ -201,17 +212,3 @@ export const handleLikeSongs=createAsyncThunk("user/likes",async({song,email})=>
   }
   
 })
-// export const getAllLikes=createAsyncThunk("user/all-likes",async({email})=>{
-//   const q=query(userCollectionRef,where("email","==",email))
-//   const querySnapshot = await getDocs(q);
-//   if(!querySnapshot.empty){
-//     const userDocument=querySnapshot.docs[0].data()
-//     return {
-//       liked_songs:userDocument.liked_songs,
-//       error:null
-//     }
-//   }else return {
-//     liked_songs:[],
-//     error:'No user found'
-//   }
-// })

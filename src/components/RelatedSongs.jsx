@@ -1,11 +1,13 @@
 import React from 'react';
 
-import SongBar from './SongBar';
+import {SongBar,Empty} from "../components"
 import { useSelector } from 'react-redux';
 
 const RelatedSongs = ({ data, artistId, isPlaying, activeSong}) => {
   console.log("tttttttt",artistId)
   const {user}=useSelector(state=>state.user)
+  if(!data || data?.length==0)
+    return <Empty/>
   return (
     <div className="flex flex-col">
       <h1 className="font-bold text-3xl text-white">Related Songs:</h1>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Loader,Error,SongCard,ArtistCard} from "../components"
+import {Loader,Error,SongCard,Empty} from "../components"
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTopLocalChartsQuery } from '../redux/services/shazamCore';
 import {genres} from "../assets/constants"
@@ -14,6 +14,8 @@ const CountryTracks = () => {
     return <Loader/>
    if(error)
     return <Error/>
+    if(!tracks || tracks?.length == 0)
+    return <Empty/>
    return (
        <>
        <div className="flex flex-col">

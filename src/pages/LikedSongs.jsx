@@ -1,9 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { SongBar } from '../components'
+import { SongBar,Empty,Loader } from '../components'
 const LikedSongs = () => {
     const {activeSong,isPlaying}=useSelector(state=>state.player)
-    const {user}=useSelector(state=>state.user)
+    const {user,isLoading,error}=useSelector(state=>state.user)
+    if(isLoading)
+     return <Loader/>
+    if(error)
+      return <Error/>
+    if(user.liked_songs?.length==0)
+      return <Empty/>
   return (
     <div className="flex flex-col">
       <h1 className="font-bold text-3xl text-white">Liked Songs :</h1>

@@ -26,14 +26,18 @@ const userSlice=createSlice({
         .addCase(handleLogin.fulfilled, (state, action) => {
             console.log("done login",action.payload)
             state.isLoading = false;
-            state.user = action.payload.user;
-            localStorage.setItem("user", JSON.stringify(action.payload.user))
-            state.error = action.payload.error;
-            action.payload.user.liked_songs.forEach(i=>state.song_ids.push(i.title))
             if(action.payload.error)
-            notify("error",action.payload.error)
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
             else
-            notify("success","login successful")
+            {
+                notify("success","login successful")
+                state.user = action.payload.user;
+                localStorage.setItem("user", JSON.stringify(action.payload.user))
+                action.payload.user.liked_songs.forEach(i=>state.song_ids.push(i.title))
+            }
         })
         .addCase(handleLogin.rejected, (state, action) => {
             notify("error",action.payload.error)
@@ -48,12 +52,16 @@ const userSlice=createSlice({
         .addCase(handleSignup.fulfilled, (state, action) => {
             console.log("done signup",action.payload)
             state.isLoading = false;
-            state.user = action.payload.user;
-            state.error = action.payload.error;
             if(action.payload.error)
-            notify("error",action.payload.error)
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
             else
-            notify("success","signup successful")
+            {
+                notify("success","signup successful")
+                state.user = action.payload.user;
+            }
         })
         .addCase(handleSignup.rejected, (state, action) => {
             console.log("out signup",action.payload)
@@ -68,12 +76,16 @@ const userSlice=createSlice({
         .addCase(handleResetPassword.fulfilled, (state, action) => {
             console.log("done reset",action.payload)
             state.isLoading = false;
-            state.user = action.payload.user;
-            state.error = action.payload.error;
             if(action.payload.error)
-            notify("error",action.payload.error)
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
             else
-            notify("success","Reset email sent")
+            {
+                notify("success","Reset email sent")
+                state.user = action.payload.user;
+            }
         })
         .addCase(handleResetPassword.rejected, (state, action) => {
             console.log("out reset",action.payload)
@@ -88,14 +100,18 @@ const userSlice=createSlice({
         .addCase(handleGoogleAuthentication.fulfilled, (state, action) => {
             console.log("done google",action.payload)
             state.isLoading = false;
-            state.user = action.payload.user;
-            localStorage.setItem("user", JSON.stringify(action.payload.user))
-            state.error = action.payload.error;
-            action.payload.user.liked_songs.forEach(i=>state.song_ids.push(i.title))
             if(action.payload.error)
-            notify("error",action.payload.error)
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
             else
-            notify("success","Let's vibe")
+            {
+                notify("success","Let's vibe")
+                state.user = action.payload.user;
+                localStorage.setItem("user", JSON.stringify(action.payload.user))
+                action.payload.user.liked_songs.forEach(i=>state.song_ids.push(i.title))
+            }
         })
         .addCase(handleGoogleAuthentication.rejected, (state, action) => {
             console.log("out google",action.payload)
@@ -110,13 +126,17 @@ const userSlice=createSlice({
         .addCase(handleLogout.fulfilled, (state, action) => {
             console.log("done logout",action.payload)
             state.isLoading = false;
-            state.user = action.payload.user;
-            state.error = action.payload.error;
-            localStorage.removeItem("user")
             if(action.payload.error)
-            notify("error",action.payload.error)
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
             else
-            notify("success","logout successful")
+            {
+                notify("success","logout successful")
+                state.user = action.payload.user;
+                localStorage.removeItem("user")
+            }
         })
         .addCase(handleLogout.rejected, (state, action) => {
             console.log("out logout",action.payload)
@@ -131,14 +151,16 @@ const userSlice=createSlice({
         .addCase(handleLikeSongs.fulfilled, (state, action) => {
             console.log("done like",action.payload)
             state.isLoading = false;
-            state.song_ids=action.payload.song_ids
-            state.user.liked_songs=action.payload.liked_songs
-            localStorage.setItem("user",JSON.stringify(state.user))
-            state.error = action.payload.error;
             if(action.payload.error)
-            notify("error",action.payload.error)
-            else
-            notify("success","like successful")
+            {
+                notify("error",action.payload.error)
+                state.error = action.payload.error;
+            }
+            else{
+                state.song_ids=action.payload.song_ids
+                state.user.liked_songs=action.payload.liked_songs
+                localStorage.setItem("user",JSON.stringify(state.user))
+            }
         })
         .addCase(handleLikeSongs.rejected, (state, action) => {
             console.log("out like",action.payload)

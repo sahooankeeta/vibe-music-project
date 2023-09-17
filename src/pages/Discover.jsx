@@ -1,4 +1,4 @@
-import {Loader,Error,SongCard,ArtistCard} from "../components"
+import {Loader,Error,SongCard,ArtistCard,Empty} from "../components"
 import {genres} from "../assets/constants"
 import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 import { selectGenreListId } from "../redux/features/playerSlice";
@@ -9,7 +9,6 @@ const Discover = () => {
     const dispatch=useDispatch()
     const {isPlaying,activeSong,genreListId}=useSelector(state=>state.player)
     const {user}=useSelector(state=>state.user)
-    console.log("docover",user.email)
     const genreTitle=genres.find(({value})=>value===genreListId)?.title
     const {data,error,isFetching}=useGetTopChartsQuery(genreListId || 'POP')
     const tracks=data?.tracks?.filter(item=>(item?.hub?.actions?.length>0)).map(item=>
@@ -25,6 +24,8 @@ const Discover = () => {
      return <Loader/>
     if(error)
      return <Error/>
+     if(!tracks || tracks?.length == 0)
+        return <Empty/>
     return (
         <>
         <div className="flex flex-col">
