@@ -8,6 +8,7 @@ const CountryTracks = () => {
     const dispatch=useDispatch()
     const {data,isFetching,error}=useGetTopLocalChartsQuery('IN','POP')
     const {isPlaying,activeSong,genreListId}=useSelector(state=>state.player)
+    const {user}=useSelector(state=>state.user)
     const genreTitle=genres.find(({value})=>value===genreListId)?.title
     const tracks=data?.map(item=>createSongCard({title:item.title,subtitle:item.subtitle,key:item.key,audio:item.ringtone,image:item.photo_url,artistId:item.artist_id}))
     if(isFetching)
@@ -33,6 +34,7 @@ const CountryTracks = () => {
              activeSong={activeSong}
              isPlaying={isPlaying}
              i={i}
+             email={user.email}
              />)}
            </div>
        </div>
