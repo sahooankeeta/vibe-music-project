@@ -1,8 +1,12 @@
-# React + Vite
+# Vibe react music
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Fully responsive music player website, inspired by <strong>Js Mastery</strong> .
+<br/>
+Rapid Api used - <a href="https://rapidapi.com/WaveTech/api/shazam-core7">Shazam Core</a>
+<br/>
+Firebase authentication with Firestore database for storing user details with liked songs .
+<br/>
+<br/>
 
-Currently, two official plugins are available:
+https://github.com/sahooankeeta/vibe-music-project/assets/68347808/d29f3c9c-1ac7-46a5-ab9b-8a2549317854
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
