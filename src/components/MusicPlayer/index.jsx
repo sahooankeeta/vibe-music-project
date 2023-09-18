@@ -10,6 +10,7 @@ import VolumeBar from './VolumeBar';
 
 const MusicPlayer = () => {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
+  const {user,song_ids} =useSelector((state) => state.user)
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
@@ -53,9 +54,9 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
-      <div className="flex-1 flex flex-col items-center justify-center">
+    <div className="relative px-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] md:gap-20 ">
+      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} user={user} song_ids={song_ids}/>
+      <div className="flex flex-col items-center justify-start md:justify-center">
         <Controls
           isPlaying={isPlaying}
           isActive={isActive}

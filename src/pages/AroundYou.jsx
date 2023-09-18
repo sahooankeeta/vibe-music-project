@@ -25,7 +25,7 @@ const CountryTracks = () => {
                   Whats happening around you :)
                </h2>
            </div>
-           <div className="flex flex-wrap sm:justify-start justify-center gap-8">
+           <div className="flex flex-wrap sm:justify-start justify-center gap-2 md:gap-8">
              {tracks?.map((song,i)=>
              <SongCard
              key={song.key}

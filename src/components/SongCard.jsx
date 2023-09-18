@@ -18,7 +18,7 @@ const handlePlayClick = () => {
 
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg ">
-      <div className="relative w-full h-56 group cursor-pointer">
+      <div className="relative w-full h-44 md:h-56 group cursor-pointer">
         <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.key === song.key ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
           <PlayPause
             isPlaying={isPlaying}
@@ -32,13 +32,13 @@ const handlePlayClick = () => {
       </div>
 
       <div className="mt-4 flex gap-1 items-center">
-        <div className='flex-1 flex flex-col'>
-        <p className="font-semibold text-lg text-white truncate whitespace-break-spaces">
+        <div className='flex-1 flex flex-col overflow-hidden'>
+        <p className="font-semibold text-lg text-white truncate">
           <Link to={`/songs/${song?.key}`}>
             {song.title}
           </Link>
         </p>
-        <p className="text-sm truncate text-gray-300 mt-1 whitespace-break-spaces">
+        <p className="text-sm truncate text-gray-300 mt-1">
           <Link to={song.artistId ? `/artists/${song.artistId}` : '/top-artists'}>
             {song.subtitle}
           </Link>

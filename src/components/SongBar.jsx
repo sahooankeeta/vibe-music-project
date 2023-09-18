@@ -18,33 +18,32 @@ const SongBar = ({ song, i,data,isPlaying, activeSong,email}) => {
     dispatch(playPause(true))
   };
   return (
-    <div className={`w-full flex flex-row gap-1 items-center hover:bg-[#4c426e] ${activeSong?.title === song?.title ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
+    <div className={`w-full grid grid-cols-[min-content_1fr_min-content] items-center hover:bg-[#4c426e] ${activeSong?.title === song?.title ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
       <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
-      <div className="flex-1 flex flex-row justify-between items-center">
-        <img
-          className="w-20 h-20 rounded-lg"
-          src={song?.image}
-          alt={song?.title}
-        />
-        <div className="flex-1 flex flex-col justify-center mx-3">
-            <Link to={`/songs/${song.key}`}>
-              <p className="text-xl font-bold text-white">
-                {song?.title}
-              </p>
-            </Link>
-          <p className="text-base text-gray-300 mt-1">
-            {song?.subtitle}
-          </p>
-        </div>
-      </div>
-      
+      <div className="flex flex-row justify-between items-center overflow-hidden">
+      <div className="relative h-20 w-20 group cursor-pointer rounded-lg">
+        <div className={`absolute inset-0 justify-center items-center rounded-lg bg-black bg-opacity-50 group-hover:flex ${activeSong?.key === song.key ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
           <PlayPause
             isPlaying={isPlaying}
             activeSong={activeSong}
             song={song}
             handlePause={handlePauseClick}
-            handlePlay={() => handlePlayClick({song:song,data, i})}
-         />
+            handlePlay={handlePlayClick}
+          />
+        </div>
+        <img alt="song_img" src={song.image} className="w-full h-full rounded-lg" />
+      </div>
+        <div className="flex-1 flex flex-col justify-center mx-3 overflow-hidden">
+           
+              <div className="text-xl font-bold text-white truncate ">
+                {song?.title}
+              </div>
+          <div className="text-base text-gray-300 mt-1 truncate ">
+            {song?.subtitle}
+          </div>
+        </div>
+      </div>
+      
          <div className='cursor-pointer' onClick={()=>dispatch(handleLikeSongs({song,email}))}>
           {song_ids?.includes(song.title)? <AiFillHeart fill='pink' size={20}/>:<AiOutlineHeart fill='pink' size={20}/>}
         </div>
